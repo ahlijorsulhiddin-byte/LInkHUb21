@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b18">
+  <meta name="description" content="LINK HUB — каталог полезных сайтов и ссылок. Добавляй, ищи и организуй сайты по категориям.">
+  <title>LINK HUB — каталог сайтов</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="LINK HUB — главная">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13.5 14 9.5M8.4 15.6l-1.2 1.2a4 4 0 0 1-5.7-5.7l4-4a4 4 0 0 1 5.7 0M15.6 8.4l1.2-1.2a4 4 0 0 1 5.7 5.7l-4 4a4 4 0 0 1-5.7 0"/></svg></span>
+      <span>LINK<span class="brand-accent">HUB</span><small>YOUR WEB, ORGANIZED</small></span>
+    </a>
+    <div class="header-actions">
+      <span class="local-badge"><span class="live-dot"></span> Каталог ссылок</span>
+      <button class="button button-ghost" id="settingsBtn" type="button">⚙ Настройки</button>
+      <button class="button button-ghost" id="mainMenuBtn" type="button">⌂ Главное меню</button><button class="button button-primary" id="addTopBtn" type="button"><span aria-hidden="true">＋</span> Добавить ссылку</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-line"></span> ТВОЁ ПРОСТРАНСТВО В ИНТЕРНЕТЕ</div>
+        <h1>Все сайты.<br><span>В одном месте.</span></h1>
+        <p>Собирай полезные ссылки, открывай новые сайты и создавай собственную коллекцию.</p>
+        <div class="hero-actions">
+          <button class="button button-primary button-large" id="heroAddBtn">＋ Добавить сайт</button>
+          <button class="button button-ghost button-large" id="exploreBtn">Исследовать каталог <span aria-hidden="true">↓</span></button>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="hero-core"><span class="core-symbol">↗</span><span class="core-label">LINK<br>HUB</span></div>
+        <div class="float-chip chip-a"><span class="chip-icon purple">✦</span><span><b>Полезные сайты</b><small>Всё под рукой</small></span></div>
+        <div class="float-chip chip-b"><span class="chip-icon blue">⌕</span><span><b>Умный поиск</b><small>Находи быстрее</small></span></div>
+        <div class="float-chip chip-c"><span class="chip-icon green">✓</span><span><b>Твоя коллекция</b><small>Твой порядок</small></span></div>
+      </div>
+    </section>
+
+    <section class="stats-row" aria-label="Статистика каталога">
+      <div class="stat-card"><span class="stat-icon">▦</span><div><strong id="statTotal">0</strong><span>Сайтов в каталоге</span></div></div>
+      <div class="stat-card"><span class="stat-icon violet">◈</span><div><strong id="statCategories">0</strong><span>Категорий</span></div></div>
+      <div class="stat-card"><span class="stat-icon cyan">↗</span><div><strong>∞</strong><span>Возможностей</span></div></div>
+    </section>
+
+    <section class="catalog-section" id="catalog">
+      <div class="compact-tools"><label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Поиск сайтов..." autocomplete="off" aria-label="Поиск сайтов"><kbd>/</kbd></label><button id="favoritesFilterBtn" class="button button-ghost favorites-filter" type="button" aria-pressed="false">☆ Избранное</button><select id="sortSelect" class="sort-select" aria-label="Сортировка"><option value="newest">Сначала новые</option><option value="az">По названию A–Я</option><option value="oldest">Сначала старые</option></select></div>
+      <div class="category-row" id="categoryRow" aria-label="Фильтр по категориям"></div>
+      <div class="results-line"><span id="resultsCount">0 сайтов</span><div class="result-actions"><button class="text-button" id="clearSearchBtn" hidden>Сбросить фильтры ×</button></div></div>
+      <div class="site-grid" id="siteGrid" aria-live="polite"></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-icon">⌕</div><h3>Ничего не найдено</h3><p>Попробуй изменить запрос или добавь сайт в каталог.</p><button class="button button-primary" id="emptyAddBtn">＋ Добавить ссылку</button>
+      </div>
+    </section>
+
+  </main>
+
+  <dialog class="site-dialog" id="siteDialog" aria-labelledby="dialogTitle">
+    <form id="siteForm" novalidate>
+      <div class="dialog-heading"><div><div class="eyebrow" id="dialogEyebrow">НОВАЯ ЗАКЛАДКА</div><h2 id="dialogTitle">Добавить <span>сайт</span></h2></div><button type="button" class="icon-button" id="closeDialogBtn" aria-label="Закрыть">×</button></div>
+      <input type="hidden" id="editId">
+      <label class="field-label" for="siteName">Название сайта <span>*</span></label>
+      <input class="field-input" id="siteName" name="name" maxlength="70" placeholder="Например, Wikipedia" required>
+      <label class="field-label" for="siteUrl">Ссылка на сайт <span>*</span></label>
+      <input class="field-input" id="siteUrl" name="url" type="text" inputmode="url" maxlength="2048" placeholder="https://example.com" required>
+      <p class="field-hint">Можно вводить адрес с https:// или без него. Разрешены только веб-ссылки HTTP/HTTPS.</p>
+      <label class="field-label" for="siteCategory">Категория</label>
+      <select class="field-input" id="siteCategory" name="category">
+        <option>ИИ и инструменты</option><option>Обучение</option><option>Игры</option><option>Развлечения</option><option>Работа</option><option>Дизайн</option><option>Другое</option>
+      </select>
+      <label class="field-label" for="siteDescription">Описание <small>(необязательно)</small></label>
+      <textarea class="field-input field-textarea" id="siteDescription" name="description" maxlength="180" rows="3" placeholder="Коротко расскажи, чем полезен этот сайт..."></textarea>
+      <p class="form-error" id="formError" role="alert" hidden></p>
+      <div class="dialog-actions"><button type="button" class="button button-ghost" id="cancelBtn">Отмена</button><button type="submit" class="button button-primary" id="saveBtn">Сохранить сайт</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="site-dialog settings-dialog" id="settingsDialog" aria-labelledby="settingsTitle">
+    <div class="dialog-heading"><div><div class="eyebrow">ВНЕШНИЙ ВИД</div><h2 id="settingsTitle">Настройки <span>стиля</span></h2></div><button type="button" class="icon-button" id="closeSettingsBtn" aria-label="Закрыть">×</button></div>
+    <div class="settings-group"><label class="field-label" for="languageSelect">Язык сайта / Website language</label><select class="field-input" id="languageSelect"><option value="ru">Русский</option><option value="en">English</option></select></div>
+    <div class="settings-group"><label class="field-label">Цветовая тема</label><div class="theme-options"><button type="button" class="theme-option active" data-theme-choice="neon"><span class="theme-swatch swatch-neon"></span><b>Neon Glass</b><small>Сине-фиолетовая</small></button><button type="button" class="theme-option" data-theme-choice="emerald"><span class="theme-swatch swatch-emerald"></span><b>Emerald</b><small>Изумрудная</small></button><button type="button" class="theme-option" data-theme-choice="pink"><span class="theme-swatch swatch-pink"></span><b>Cyber Pink</b><small>Розовая</small></button><button type="button" class="theme-option" data-theme-choice="ocean"><span class="theme-swatch swatch-ocean"></span><b>Deep Ocean</b><small>Морская синяя</small></button><button type="button" class="theme-option" data-theme-choice="sunset"><span class="theme-swatch swatch-sunset"></span><b>Sunset</b><small>Оранжево-красная</small></button><button type="button" class="theme-option" data-theme-choice="gold"><span class="theme-swatch swatch-gold"></span><b>Gold Luxury</b><small>Золотая</small></button><button type="button" class="theme-option" data-theme-choice="ice"><span class="theme-swatch swatch-ice"></span><b>Arctic Ice</b><small>Ледяная голубая</small></button><button type="button" class="theme-option" data-theme-choice="aurora-glow"><span class="theme-swatch swatch-aurora-glow"></span><b>Aurora Glow</b><small>Бирюзово-розовая</small></button><button type="button" class="theme-option" data-theme-choice="violet"><span class="theme-swatch swatch-violet"></span><b>Ultra Violet</b><small>Глубокий фиолетовый</small></button><button type="button" class="theme-option" data-theme-choice="crimson"><span class="theme-swatch swatch-crimson"></span><b>Crimson</b><small>Красный неон</small></button><button type="button" class="theme-option" data-theme-choice="mint"><span class="theme-swatch swatch-mint"></span><b>Fresh Mint</b><small>Мятный и бирюзовый</small></button><button type="button" class="theme-option" data-theme-choice="lavender"><span class="theme-swatch swatch-lavender"></span><b>Lavender Dream</b><small>Лавандовый свет</small></button><button type="button" class="theme-option" data-theme-choice="matrix"><span class="theme-swatch swatch-matrix"></span><b>Matrix</b><small>Кибер-зелёный</small></button><button type="button" class="theme-option" data-theme-choice="coffee"><span class="theme-swatch swatch-coffee"></span><b>Midnight Coffee</b><small>Кофейный и бронзовый</small></button><button type="button" class="theme-option" data-theme-choice="light"><span class="theme-swatch swatch-light"></span><b>Cloud Light</b><small>Светлый интерфейс</small></button><button type="button" class="theme-option" data-theme-choice="synthwave"><span class="theme-swatch swatch-synthwave"></span><b>Synthwave</b><small>Ретро-неон</small></button></div></div>
+    <div class="settings-group"><label class="field-label" for="densitySelect">Размер карточек</label><select class="field-input" id="densitySelect"><option value="comfortable">Обычный</option><option value="compact">Компактный</option></select></div>
+    <div class="settings-group"><label class="field-label" for="columnsSelect">Количество колонок</label><select class="field-input" id="columnsSelect"><option value="auto">Автоматически (3)</option><option value="2">2 колонки</option><option value="3">3 колонки</option><option value="4">4 колонки</option><option value="5">5 колонок</option><option value="6">6 колонок</option><option value="7">7 колонок</option><option value="8">8 колонок</option><option value="9">9 колонок</option><option value="10">10 колонок</option></select></div>
+    <div class="settings-group"><label class="field-label" for="motionSelect">Анимации</label><select class="field-input" id="motionSelect"><option value="on">Включены</option><option value="off">Выключены</option></select></div>
+    <div class="settings-group"><label class="field-label" for="glowSelect">Неоновое свечение</label><select class="field-input" id="glowSelect"><option value="medium">Среднее</option><option value="low">Мягкое</option><option value="high">Сильное</option><option value="off">Выключено</option></select></div>
+    <div class="settings-group"><label class="field-label" for="radiusSelect">Скругление карточек</label><select class="field-input" id="radiusSelect"><option value="soft">Мягкое</option><option value="sharp">Угловатое</option><option value="round">Сильно скруглённое</option></select></div>
+    <div class="settings-group"><label class="field-label" for="backgroundSelect">Эффект фона</label><select class="field-input" id="backgroundSelect"><option value="aurora">Неоновая дымка</option><option value="stars">Звёздная сетка</option><option value="plain">Минимализм</option><option value="grid">Кибер-сетка</option><option value="gradient">Градиентный поток</option></select></div>
+    <div class="settings-actions"><button type="button" class="button button-ghost" id="resetSettingsBtn">Сбросить</button><button type="button" class="button button-primary" id="saveSettingsBtn">Сохранить</button></div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
